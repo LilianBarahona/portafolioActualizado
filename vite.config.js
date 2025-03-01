@@ -20,8 +20,7 @@ const obtenerEntradasHTML = ()=>{
 }
 
 export default defineConfig({
-    appType: 'mpa',
-    base: process.env.DEPLOY_BASE_URL,
+    appType: 'mpa'
     build: {
         rollupOptions: {
             input: obtenerEntradasHTML()
