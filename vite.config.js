@@ -2,6 +2,8 @@ import path, { resolve } from "node:path";
 import { defineConfig } from 'vite';
 import * as glob from 'glob';
 import htmlPurge from 'vite-plugin-purgecss';
+import handlebars from 'vite-plugin-handlebars';
+import { getPageContext } from './data';
 
 const obtenerEntradasHTML = ()=>{
     return Object.fromEntries(
@@ -19,14 +21,20 @@ const obtenerEntradasHTML = ()=>{
     );
 }
 
+
 export default defineConfig({
     appType: 'mpa',
+    base: process.env.DEPLOY_BASE_URL,
     build: {
         rollupOptions: {
             input: obtenerEntradasHTML()
         }
     },
     plugins: [
+        handlebars({
+            partialDirectory: resolve(__dirname, 'partials'),
+            context: getPageContext
+        }),
         htmlPurge({})
     ]
 
